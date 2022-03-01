@@ -17,5 +17,8 @@ int main(int argc, char** argv) {
         std::cerr << "  Try 'basename -h' for more information\n";
     }
 
-    std::cout << get_basename(argv[1]) << std::endl;
+    for(int i = 1; i < argc; i++) {
+        std::cout << get_basename(argv[i]) << std::endl;
+    }
+
 }
