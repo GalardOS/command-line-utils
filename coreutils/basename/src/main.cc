@@ -7,14 +7,24 @@ struct basename_settings {
     std::string suffix{};
 };
 
-std::string get_basename(const std::string& name) {
+static std::string remove_string_suffix(const std::string& string, const std::string& suffix) {
+    auto found_string = string.find(suffix);
+    if(found_string == std::string::npos) {
+        return string;
+    } else {
+        return string.substr(0, string.size() - suffix.size());
+    }
+} 
+
+static std::string get_basename(const std::string& name, const std::string& suffix) {
     for(int i = name.size() - 1; i > 0; i--) {
         if(name[i] == '/') {
-            return name.substr(i + 1, name.size() - i);
+            auto basename = name.substr(i + 1, name.size() - i);
+            return remove_string_suffix(basename, suffix);
         }
     }
 
-    return name;
+    return remove_string_suffix(name, suffix);
 }
 
 void print_help_message() {
@@ -35,7 +45,7 @@ int main(int argc, char** argv) {
 
     int option;
     basename_settings settings{};
-    while((option = getopt(argc, argv, "a:szh")) != -1) {
+    while((option = getopt(argc, argv, "as:zh")) != -1) {
         switch(option) {
             case 'a':
                 settings.multiple = true;
@@ -56,10 +66,10 @@ int main(int argc, char** argv) {
     }
 
     if(settings.multiple) {
-        for(int i = optind - 1; i < argc; i++) {
-            std::cout << get_basename(argv[i]) << settings.newline;
+        for(int i = optind; i < argc; i++) {
+            std::cout << get_basename(argv[i], settings.suffix) << settings.newline;
         }
     } else {
-        std::cout << get_basename(argv[optind]) << settings.newline;
+        std::cout << get_basename(argv[optind], settings.suffix) << settings.newline;
     }
 }
