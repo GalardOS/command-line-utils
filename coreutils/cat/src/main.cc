@@ -18,10 +18,33 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
+#include <algorithm>
 
 struct cat_settings {
     bool number_lines = false;
+    bool replace_tabs = false;
 };
+
+static std::string replace_tabs(const std::string& string) {
+    std::string result;
+
+    int tab_count = std::count(string.begin(), string.end(), '\t');
+    result.resize(string.size() + tab_count);
+    
+    int result_pos = 0;
+    for(int i = 0; i < result.size(); i++) {
+        if(string[i] == '\t') {
+            result[result_pos + 0] = '^';
+            result[result_pos + 1] = 'I';
+            result_pos += 2;
+        } else {
+            result[result_pos] = string[i];
+            result_pos++;
+        }
+    }
+
+    return result;
+}
 
 int main(int argc, char** argv) {
     // If no file is passed, reading from stdin
@@ -35,10 +58,13 @@ int main(int argc, char** argv) {
 
     cat_settings settings{};
     int option;
-    while((option = getopt(argc, argv, "n")) != -1) {
+    while((option = getopt(argc, argv, "nT")) != -1) {
         switch(option) {
             case 'n':
                 settings.number_lines = true;
+                break;
+            case 'T':
+                settings.replace_tabs = true;
                 break;
         }
     }
@@ -58,6 +84,11 @@ int main(int argc, char** argv) {
             if(settings.number_lines) {
                 std::cout << " " << line_number << "\t";
             }
+
+            if(settings.replace_tabs) {
+                line = replace_tabs(line);
+            }
+            
             std::cout << line << std::endl;
             line_number++;
         }
