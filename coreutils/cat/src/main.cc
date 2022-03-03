@@ -17,6 +17,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <unistd.h>
+
+struct cat_settings {
+    bool number_lines = false;
+};
 
 int main(int argc, char** argv) {
     // If no file is passed, reading from stdin
@@ -28,7 +33,17 @@ int main(int argc, char** argv) {
         }
     }
 
-    for(int i = 1; i < argc; i++) {
+    cat_settings settings{};
+    int option;
+    while((option = getopt(argc, argv, "n")) != -1) {
+        switch(option) {
+            case 'n':
+                settings.number_lines = true;
+                break;
+        }
+    }
+
+    for(int i = optind; i < argc; i++) {
         std::ifstream file(argv[i]);
         if(!file.is_open()) {
             std::cerr << "cat: " << argv[i] << ": No such file or directory\n";
@@ -37,8 +52,14 @@ int main(int argc, char** argv) {
 
         // TODO: extra newline at end of files, check if spec compliant.
         std::string line;
+        int line_number = 0;
         while(std::getline(file, line, '\n')) {
+            // TODO: left align the numbers?
+            if(settings.number_lines) {
+                std::cout << " " << line_number << "\t";
+            }
             std::cout << line << std::endl;
+            line_number++;
         }
     }
 }
