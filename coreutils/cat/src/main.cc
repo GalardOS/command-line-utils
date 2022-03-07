@@ -23,6 +23,7 @@
 struct cat_settings {
     bool number_lines = false;
     bool replace_tabs = false;
+    bool replace_newlines = false;
 };
 
 static std::string replace_tabs(const std::string& string) {
@@ -58,13 +59,16 @@ int main(int argc, char** argv) {
 
     cat_settings settings{};
     int option;
-    while((option = getopt(argc, argv, "nT")) != -1) {
+    while((option = getopt(argc, argv, "nTE")) != -1) {
         switch(option) {
             case 'n':
                 settings.number_lines = true;
                 break;
             case 'T':
                 settings.replace_tabs = true;
+                break;
+            case 'E':
+                settings.replace_newlines = true;
                 break;
         }
     }
@@ -89,7 +93,11 @@ int main(int argc, char** argv) {
                 line = replace_tabs(line);
             }
             
-            std::cout << line << std::endl;
+            if(settings.replace_newlines) {
+                std::cout << line << '$' << std::endl;
+            } else {
+                std::cout << line << std::endl;
+            }
             line_number++;
         }
     }
