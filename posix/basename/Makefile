@@ -39,13 +39,13 @@ endef
 ifeq ($(config),debug)
 OBJDIR = bin/Debug
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O0 -g
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O0 -g -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O0 -g -std=c++20
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
 OBJDIR = bin/Release
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++17
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -std=c++20
 ALL_LDFLAGS += $(LDFLAGS) -s
 
 endif
