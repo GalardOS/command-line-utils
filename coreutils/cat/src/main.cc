@@ -20,33 +20,6 @@
 #include <unistd.h>
 #include <algorithm>
 
-struct cat_settings {
-    bool number_lines = false;
-    bool replace_tabs = false;
-    bool replace_newlines = false;
-};
-
-static std::string replace_tabs(const std::string& string) {
-    std::string result;
-
-    int tab_count = std::count(string.begin(), string.end(), '\t');
-    result.resize(string.size() + tab_count);
-    
-    int result_pos = 0;
-    for(int i = 0; i < result.size(); i++) {
-        if(string[i] == '\t') {
-            result[result_pos + 0] = '^';
-            result[result_pos + 1] = 'I';
-            result_pos += 2;
-        } else {
-            result[result_pos] = string[i];
-            result_pos++;
-        }
-    }
-
-    return result;
-}
-
 int main(int argc, char** argv) {
     // If no file is passed, reading from stdin
     if(argc < 2) {
@@ -57,23 +30,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    cat_settings settings{};
-    int option;
-    while((option = getopt(argc, argv, "nTE")) != -1) {
-        switch(option) {
-            case 'n':
-                settings.number_lines = true;
-                break;
-            case 'T':
-                settings.replace_tabs = true;
-                break;
-            case 'E':
-                settings.replace_newlines = true;
-                break;
-        }
-    }
-
-    for(int i = optind; i < argc; i++) {
+    for(int i = 1; i < argc; i++) {
         std::ifstream file(argv[i]);
         if(!file.is_open()) {
             std::cerr << "cat: " << argv[i] << ": No such file or directory\n";
@@ -82,23 +39,8 @@ int main(int argc, char** argv) {
 
         // TODO: extra newline at end of files, check if spec compliant.
         std::string line;
-        int line_number = 0;
         while(std::getline(file, line, '\n')) {
-            // TODO: left align the numbers?
-            if(settings.number_lines) {
-                std::cout << " " << line_number << "\t";
-            }
-
-            if(settings.replace_tabs) {
-                line = replace_tabs(line);
-            }
-            
-            if(settings.replace_newlines) {
-                std::cout << line << '$' << std::endl;
-            } else {
-                std::cout << line << std::endl;
-            }
-            line_number++;
+            std::cout << line << std::endl;
         }
     }
 }
