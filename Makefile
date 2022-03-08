@@ -27,11 +27,11 @@ all: $(PROJECTS)
 basename:
 ifneq (,$(basename_config))
 	@echo "==== Building basename ($(basename_config)) ===="
-	@${MAKE} --no-print-directory -C coreutils/basename -f Makefile config=$(basename_config)
+	@${MAKE} --no-print-directory -C posix/basename -f Makefile config=$(basename_config)
 endif
 
 clean:
-	@${MAKE} --no-print-directory -C coreutils/basename -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/basename -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
