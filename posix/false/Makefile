@@ -20,7 +20,7 @@ endif
 
 RESCOMP = windres
 TARGETDIR = .
-TARGET = $(TARGETDIR)/true
+TARGET = $(TARGETDIR)/false
 DEFINES +=
 INCLUDES += -Ilib/include -Isrc
 FORCE_INCLUDE +=
@@ -71,7 +71,7 @@ all: $(TARGET)
 
 $(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
-	@echo Linking true
+	@echo Linking false
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -92,7 +92,7 @@ else
 endif
 
 clean:
-	@echo Cleaning true
+	@echo Cleaning false
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(GENERATED)

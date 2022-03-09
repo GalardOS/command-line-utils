@@ -1,4 +1,4 @@
-project "true"
+project "false"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
