@@ -39,8 +39,11 @@ int main(int argc, char** argv) {
 
         // TODO: extra newline at end of files, check if spec compliant.
         std::string line;
+        std::getline(file, line, '\n');
+        std::cout << line << std::endl;
+
         while(std::getline(file, line, '\n')) {
-            std::cout << line << std::endl;
+            std::cout << std::endl << line;
         }
     }
 }
