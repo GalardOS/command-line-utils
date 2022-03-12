@@ -10,15 +10,19 @@ endif
 
 ifeq ($(config),debug)
   basename_config = debug
+  true_config = debug
+  false_config = debug
 
 else ifeq ($(config),release)
   basename_config = release
+  true_config = release
+  false_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := basename
+PROJECTS := basename true false
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -30,8 +34,22 @@ ifneq (,$(basename_config))
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile config=$(basename_config)
 endif
 
+true:
+ifneq (,$(true_config))
+	@echo "==== Building true ($(true_config)) ===="
+	@${MAKE} --no-print-directory -C posix/true -f Makefile config=$(true_config)
+endif
+
+false:
+ifneq (,$(false_config))
+	@echo "==== Building false ($(false_config)) ===="
+	@${MAKE} --no-print-directory -C posix/false -f Makefile config=$(false_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/true -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/false -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -44,5 +62,7 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   basename"
+	@echo "   true"
+	@echo "   false"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
