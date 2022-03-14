@@ -13,18 +13,20 @@ ifeq ($(config),debug)
   true_config = debug
   false_config = debug
   sleep_config = debug
+  nohup_config = debug
 
 else ifeq ($(config),release)
   basename_config = release
   true_config = release
   false_config = release
   sleep_config = release
+  nohup_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := basename true false sleep
+PROJECTS := basename true false sleep nohup
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -54,11 +56,18 @@ ifneq (,$(sleep_config))
 	@${MAKE} --no-print-directory -C posix/sleep -f Makefile config=$(sleep_config)
 endif
 
+nohup:
+ifneq (,$(nohup_config))
+	@echo "==== Building nohup ($(nohup_config)) ===="
+	@${MAKE} --no-print-directory -C posix/nohup -f Makefile config=$(nohup_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/true -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/false -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/sleep -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/nohup -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -74,5 +83,6 @@ help:
 	@echo "   true"
 	@echo "   false"
 	@echo "   sleep"
+	@echo "   nohup"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
