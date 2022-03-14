@@ -28,6 +28,12 @@ static void redirect_stdout_to_file(const std::string& file) {
 }
 
 int main(int argc, char** argv) {
+    if(argc == 1) {
+        std::cerr << "nohup: Missing operand\n";
+        std::cerr << "  Try 'man nohup' for more information\n";
+        std::exit(1);
+    }
+
     int utility_argc = argc - 1;
     char** utility_argv = argv + 1;
 
