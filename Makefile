@@ -10,12 +10,14 @@ endif
 
 ifeq ($(config),debug)
   basename_config = debug
+  cat_config = debug
   true_config = debug
   false_config = debug
   sleep_config = debug
 
 else ifeq ($(config),release)
   basename_config = release
+  cat_config = release
   true_config = release
   false_config = release
   sleep_config = release
@@ -24,7 +26,7 @@ else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := basename true false sleep
+PROJECTS := basename cat true false sleep
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -34,6 +36,12 @@ basename:
 ifneq (,$(basename_config))
 	@echo "==== Building basename ($(basename_config)) ===="
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile config=$(basename_config)
+endif
+
+cat:
+ifneq (,$(cat_config))
+	@echo "==== Building cat ($(cat_config)) ===="
+	@${MAKE} --no-print-directory -C posix/cat -f Makefile config=$(cat_config)
 endif
 
 true:
@@ -56,6 +64,7 @@ endif
 
 clean:
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/cat -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/true -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/false -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/sleep -f Makefile clean
@@ -71,6 +80,7 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   basename"
+	@echo "   cat"
 	@echo "   true"
 	@echo "   false"
 	@echo "   sleep"
