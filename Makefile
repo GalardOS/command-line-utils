@@ -13,18 +13,20 @@ ifeq ($(config),debug)
   true_config = debug
   false_config = debug
   pwd_config = debug
+  sleep_config = debug
 
 else ifeq ($(config),release)
   basename_config = release
   true_config = release
   false_config = release
   pwd_config = release
+  sleep_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := basename true false pwd
+PROJECTS := basename true false pwd sleep
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -54,11 +56,18 @@ ifneq (,$(pwd_config))
 	@${MAKE} --no-print-directory -C posix/pwd -f Makefile config=$(pwd_config)
 endif
 
+sleep:
+ifneq (,$(sleep_config))
+	@echo "==== Building sleep ($(sleep_config)) ===="
+	@${MAKE} --no-print-directory -C posix/sleep -f Makefile config=$(sleep_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C posix/basename -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/true -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/false -f Makefile clean
 	@${MAKE} --no-print-directory -C posix/pwd -f Makefile clean
+	@${MAKE} --no-print-directory -C posix/sleep -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -74,5 +83,6 @@ help:
 	@echo "   true"
 	@echo "   false"
 	@echo "   pwd"
+	@echo "   sleep"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"
