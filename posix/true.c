@@ -14,11 +14,8 @@
  *    - Iker Galardi
  */
 
-#include <iostream>
-#include <filesystem>
+#include <stdlib.h>
 
 int main(int argc, char** argv) {
-    auto current_path = std::filesystem::current_path().string();
-
-    std::cout << current_path << std::endl;
+    exit(0);
 }

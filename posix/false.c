@@ -14,16 +14,8 @@
  *    - Iker Galardi
  */
 
-#include <iostream>
-#include <unistd.h>
+#include <stdlib.h>
 
 int main(int argc, char** argv) {
-    if(argc != 2) {
-        std::cerr << "sleep: missing operand\n";
-        std::cerr << "  Try 'man sleep' for more information\n";
-        std::exit(1);
-    }
-
-    int sleep_duration = std::stoi(argv[1]);
-    sleep(sleep_duration);
+    exit(1);
 }
