@@ -1,7 +1,7 @@
 CC=clang
 CFLAGS=-Wall -Wpedantic -m64 -march=native -O3 
 
-UTILITIES=bin/true bin/false
+UTILITIES=bin/true bin/false bin/nohup
 
 all: $(UTILITIES)
 
