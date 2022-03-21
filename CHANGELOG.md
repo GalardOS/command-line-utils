@@ -12,6 +12,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Implemented utility `nohup`
 * Implemented utility `pwd`
 * Implemented utility `sleep`
+* Added manual page for utility `basename`
+* Added manual page for utility `cat`
+* Added manual page for utilities `true` and `false`
+* Added manual page for utility `nohup`
+* Added manual page for utility `pwd`
+* Added manual page for utility `sleep`
 
 ### Changed
 ### Fixed
