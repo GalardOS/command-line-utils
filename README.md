@@ -58,3 +58,6 @@ Hardware utilities include hardware debugging related utilities. The next are in
 * lscpu
 * lspci
 * lsusb
+
+## Contributing
+For contribution guides check the `CONTRIBUTING.md` file.
