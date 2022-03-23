@@ -20,11 +20,11 @@
 std::string calculate_dirname(const std::string& string) {
     for(int i = string.size() - 1; i > 0; i--) {
         if(string[i] == '/') {
-            return string.substr(0, i + 1);
+            return string.substr(0, i);
         }
     }
 
-    return std::string{"./"};
+    return std::string{"."};
 }
 
 int main(int argc, char** argv) {
