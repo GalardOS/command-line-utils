@@ -6,18 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## 1.0.0 [UNRELEASED]
 ### Added
-* Implemented utility `basename`
-* Implemented utility `cat`
-* Implemented utilities `true` and `false`
-* Implemented utility `nohup`
-* Implemented utility `pwd`
-* Implemented utility `sleep`
-* Added manual page for utility `basename`
-* Added manual page for utility `cat`
-* Added manual page for utilities `true` and `false`
-* Added manual page for utility `nohup`
-* Added manual page for utility `pwd`
-* Added manual page for utility `sleep`
+* Implemented utility `basename` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `cat` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utilities `true` and `false` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `nohup` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `pwd` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `sleep` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `dirname` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `echo` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `basename` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `cat` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utilities `true` and `false` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `nohup` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `pwd` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `sleep` by [@ikergalardi](https://github.com/IkerGalardi/)
 
 ### Changed
 ### Fixed
