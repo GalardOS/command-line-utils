@@ -14,8 +14,61 @@
  *    - Iker Galardi
  */
 
-#include <cstdlib>
+#include <unistd.h>
+#include <fcntl.h>
+
+#include <filesystem>
+
+struct touch_flags {
+    bool change_access_time = false;
+    bool change_modify_time = false;
+};
+
+static touch_flags get_flags(int argc, char** argv) {
+    touch_flags flags{};
+
+    int option;
+    while((option = getopt(argc, argv, "am")) != -1) {
+        switch(option) {
+            case 'a':
+                flags.change_access_time = true;
+                break;
+            case 'm':
+                flags.change_modify_time = true;
+                break;
+        }
+    }
+
+    // SPEC: If neither the -a nor -m options were specified, touch shall behave as if both
+    //       the -a and -m options were specified.
+    if(!flags.change_access_time && !flags.change_modify_time) {
+        flags.change_access_time = true;
+        flags.change_modify_time = true;
+    }
+
+    return flags;
+}
+
+static void create_file_at_path(std::filesystem::path path) {
+    // TODO: do it in a more C++ way.
+    int fd = creat(path.string().c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
+}
 
 int main(int argc, char** argv) {
+    auto flags = get_flags(argc, argv);
 
+    for(int i = optind; i < argc; i++) {
+        std::filesystem::path file{argv[i]};
+
+        // SPEC: If the file does not exist, then the file should be created.
+        if(!std::filesystem::exists(file)) {
+            bool ok = create_file_at_path(file);
+            if(!ok) {
+                std::cerr << "touch: error while creating " << file.string() << " file\n";
+                std::exit(1);
+            }
+        } else {
+
+        }
+    }
 }
