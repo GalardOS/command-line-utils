@@ -16,6 +16,7 @@
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 #include <filesystem>
 
@@ -62,13 +63,20 @@ int main(int argc, char** argv) {
 
         // SPEC: If the file does not exist, then the file should be created.
         if(!std::filesystem::exists(file)) {
-            bool ok = create_file_at_path(file);
-            if(!ok) {
-                std::cerr << "touch: error while creating " << file.string() << " file\n";
-                std::exit(1);
-            }
+            create_file_at_path(file);
         } else {
+            timespec current_time;
+            clock_gettime(CLOCK_MONOTONIC, &current_time);
 
+            timespec times_to_set[2];
+            if(flags.change_access_time) {
+                times_to_set[0] = current_time;
+            }
+            if(flags.change_modify_time) {
+                times_to_set[1] = current_time;
+            }
+
+            utimensat(AT_FDCWD, file.string().c_str(), times_to_set, 0);
         }
     }
 }
