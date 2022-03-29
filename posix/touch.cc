@@ -65,18 +65,7 @@ int main(int argc, char** argv) {
         if(!std::filesystem::exists(file)) {
             create_file_at_path(file);
         } else {
-            timespec current_time;
-            clock_gettime(CLOCK_MONOTONIC, &current_time);
-
-            timespec times_to_set[2];
-            if(flags.change_access_time) {
-                times_to_set[0] = current_time;
-            }
-            if(flags.change_modify_time) {
-                times_to_set[1] = current_time;
-            }
-
-            utimensat(AT_FDCWD, file.string().c_str(), times_to_set, 0);
+            utimensat(AT_FDCWD, file.string().c_str(), NULL, 0);
         }
     }
 }
