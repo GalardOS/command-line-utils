@@ -17,7 +17,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
+#include <iostream>
 #include <filesystem>
 
 struct touch_flags {
@@ -65,7 +67,19 @@ int main(int argc, char** argv) {
         if(!std::filesystem::exists(file)) {
             create_file_at_path(file);
         } else {
-            utimensat(AT_FDCWD, file.string().c_str(), NULL, 0);
+            timespec times_to_set[2] {
+                {0, UTIME_OMIT},
+                {0, UTIME_OMIT}
+            };
+
+            if(flags.change_access_time) {
+                times_to_set[0].tv_nsec = UTIME_NOW;
+            }
+
+            if(flags.change_modify_time) {
+                times_to_set[1].tv_nsec = UTIME_NOW;
+            }
+            utimensat(AT_FDCWD, file.string().c_str(), times_to_set, 0);
         }
     }
 }
