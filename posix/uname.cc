@@ -19,6 +19,27 @@
 #include <iostream>
 #include <string>
 
+std::string hardware_type() {
+    return std::string{"unknown"};
+}
+
+std::string hostname() {
+    char hostname[255];
+    gethostname(hostname, 255);
+    
+    return std::string{hostname};
+}
+
+std::string os_release() {
+    return std::string{"DEVELOPMENT"};
+}
+
+std::string os_name() {
+    return std::string{"GalardOS"};
+}
+
+
+
 struct uname_flags {
     bool hardware_type = false;
     bool hostname = false;
@@ -48,7 +69,6 @@ static uname_flags get_flags(int argc, char** argv) {
             case 'v':
                 flags.os_release = true;
                 break;
-
         }
 
         option_count++;
@@ -65,26 +85,20 @@ static uname_flags get_flags(int argc, char** argv) {
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
-    // TODO: some way of reading this values at runtime
-    const std::string hardware_type = "x86_64";
-    const std::string hostname = "unknown";
-    const std::string os_release = "1.0 DEVELOPMENT";
-    const std::string os_name = "GalardOS";
-
     if(flags.hardware_type) {
-        std::cout << hardware_type << ' ';
+        std::cout << hardware_type() << ' ';
     }
 
     if(flags.hostname) {
-        std::cout << hostname << ' ';
+        std::cout << hostname() << ' ';
     }
 
     if(flags.os_release) {
-        std::cout << os_release << ' ';
+        std::cout << os_release() << ' ';
     }
 
     if(flags.os_name) {
-        std::cout << os_name << ' ';
+        std::cout << os_name() << ' ';
     }
 
     std::cout << std::endl;
