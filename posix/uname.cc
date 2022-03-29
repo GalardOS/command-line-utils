@@ -20,7 +20,13 @@
 #include <string>
 
 std::string hardware_type() {
+#if defined(__x86_64__) || defined(_M_X64)
+    return std::string{"x86_64"};
+#elif defined(__aarch64__) || defined(_M_ARM64)
+    return std::string{"aarch64"};
+#else
     return std::string{"unknown"};
+#endif
 }
 
 std::string hostname() {
