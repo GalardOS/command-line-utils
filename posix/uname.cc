@@ -44,8 +44,6 @@ std::string os_name() {
     return std::string{"GalardOS"};
 }
 
-
-
 struct uname_flags {
     bool hardware_type = false;
     bool hostname = false;
