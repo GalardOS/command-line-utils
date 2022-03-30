@@ -78,7 +78,7 @@ static uname_flags get_flags(int argc, char** argv) {
         option_count++;
     }
 
-    // If no options have been selected, add the -s flag automatically.
+    // SPEC: If no options have been selected, add the -s flag automatically.
     if(option_count == 0) {
         flags.os_name = true;
     }
