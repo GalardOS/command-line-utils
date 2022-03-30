@@ -56,8 +56,14 @@ static uname_flags get_flags(int argc, char** argv) {
 
     int option_count = 0;
     int option;
-    while((option = getopt(argc, argv, "mnrsv")) != -1) {
+    while((option = getopt(argc, argv, "amnrsv")) != -1) {
         switch(option) {
+            case 'a':
+                flags.hardware_type = true;
+                flags.hostname = true;
+                flags.os_release = true;
+                flags.os_name = true;
+                break;
             case 'm':
                 flags.hardware_type = true;
                 break;
