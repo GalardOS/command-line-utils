@@ -20,6 +20,7 @@
 #include <sys/types.h>
 
 #include <filesystem>
+#include <iostream>
 
 struct touch_flags {
     bool change_access_time = false;
@@ -53,6 +54,11 @@ static touch_flags get_flags(int argc, char** argv) {
 
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
+
+    if(optind - argc <= 0) {
+        std::cerr << "touch: Missing operand\n";
+        std::cerr << "  Try 'man touch' for more information\n";
+    }
 
     for(int i = optind; i < argc; i++) {
         std::filesystem::path file{argv[i]};
