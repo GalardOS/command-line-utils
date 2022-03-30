@@ -19,7 +19,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <iostream>
 #include <filesystem>
 
 struct touch_flags {
@@ -52,11 +51,6 @@ static touch_flags get_flags(int argc, char** argv) {
     return flags;
 }
 
-static void create_file_at_path(std::filesystem::path path) {
-    // TODO: do it in a more C++ way.
-    int fd = creat(path.string().c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-}
-
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
@@ -65,7 +59,7 @@ int main(int argc, char** argv) {
 
         // SPEC: If the file does not exist, then the file should be created.
         if(!std::filesystem::exists(file)) {
-            create_file_at_path(file);
+            int fd = creat(file.string().c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
         } else {
             timespec times_to_set[2] {
                 {0, UTIME_OMIT},
