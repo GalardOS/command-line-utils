@@ -20,6 +20,7 @@
 #include <sys/resource.h>
 
 #include <iostream>
+#include <chrono>
 
 struct time_flags {
     bool print_to_stderr = false;
@@ -47,6 +48,7 @@ static float timeval_to_sec(timeval time) {
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
+    auto start_time = std::chrono::steady_clock::now();
     auto pid = fork();
     if(pid == 0) {
         char** child_argv = argv + 1;
@@ -60,10 +62,9 @@ int main(int argc, char** argv) {
     rusage child_rusage;
     wait4(pid, &child_status, 0, &child_rusage);
 
-    if(WIFEXITED(child_status)) {
-        std::cout << "todo oquei \n";
-    }
+    auto end_time = std::chrono::steady_clock::now();
 
+    std::cout << "Real: " << std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1000000 << "s\n";
     std::cout << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
     std::cout << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
 }
