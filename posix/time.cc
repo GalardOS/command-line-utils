@@ -66,7 +66,13 @@ int main(int argc, char** argv) {
 
     int elapsed_microseconds = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count(); 
 
-    std::cout << "Real: " <<  static_cast<float>(elapsed_microseconds) / 1000000.0f << "s\n";
-    std::cout << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
-    std::cout << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
+    if(flags.print_to_stderr) {
+        std::cerr << "Real: " << static_cast<float>(elapsed_microseconds) / 1000000.0f << "s\n";
+        std::cerr << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
+        std::cerr << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
+    } else {
+        std::cout << "Real: " << static_cast<float>(elapsed_microseconds) / 1000000.0f << "s\n";
+        std::cout << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
+        std::cout << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
+    }
 }
