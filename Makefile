@@ -5,4 +5,3 @@ all:
 clean:
 	@echo "Cleaning posix utilities..."
 	cd posix/; ${MAKE} --no-print-directory -f Makefile clean
-
