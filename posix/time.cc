@@ -48,7 +48,7 @@ static float timeval_to_sec(timeval time) {
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
-    auto start_time = std::chrono::steady_clock::now();
+    auto start_time = std::chrono::high_resolution_clock::now();
     auto pid = fork();
     if(pid == 0) {
         char** child_argv = argv + 1;
@@ -62,9 +62,11 @@ int main(int argc, char** argv) {
     rusage child_rusage;
     wait4(pid, &child_status, 0, &child_rusage);
 
-    auto end_time = std::chrono::steady_clock::now();
+    auto end_time = std::chrono::high_resolution_clock::now();
 
-    std::cout << "Real: " << std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1000000 << "s\n";
+    int elapsed_microseconds = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count(); 
+
+    std::cout << "Real: " <<  static_cast<float>(elapsed_microseconds) / 1000000.0f << "s\n";
     std::cout << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
     std::cout << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
 }
