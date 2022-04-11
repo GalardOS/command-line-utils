@@ -55,9 +55,10 @@ static touch_flags get_flags(int argc, char** argv) {
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
-    if(optind - argc <= 0) {
+    if(argc - optind <= 0) {
         std::cerr << "touch: Missing operand\n";
         std::cerr << "  Try 'man touch' for more information\n";
+        std::exit(1);
     }
 
     for(int i = optind; i < argc; i++) {
