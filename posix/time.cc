@@ -13,7 +13,13 @@
  * Authors:
  *    - Iker Galardi
  */
+
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/wait.h>
+#include <sys/resource.h>
+
+#include <iostream>
 
 struct time_flags {
     bool print_to_stderr = false;
@@ -34,6 +40,10 @@ static time_flags get_flags(int argc, char** argv) {
     return flags;
 }
 
+static float timeval_to_sec(timeval time) {
+    return static_cast<float>(time.tv_sec) + static_cast<float>(time.tv_usec) / 1000000;
+}
+
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
@@ -46,5 +56,14 @@ int main(int argc, char** argv) {
         std::exit(1);
     }
 
-    
+    int child_status;
+    rusage child_rusage;
+    wait4(pid, &child_status, 0, &child_rusage);
+
+    if(WIFEXITED(child_status)) {
+        std::cout << "todo oquei \n";
+    }
+
+    std::cout << "User: " << timeval_to_sec(child_rusage.ru_utime) << "s\n";
+    std::cout << "Sys:  " << timeval_to_sec(child_rusage.ru_stime) << "s\n";
 }
