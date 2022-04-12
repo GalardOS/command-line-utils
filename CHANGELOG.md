@@ -22,7 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Implemented utility `dirname` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Added manual page for utility `echo` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Added manual page for utility `dirname` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `uname` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Implemented utility `touch` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for utility `uname` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `time` by [@ikergalardi](https://github.com/IkerGalardi/)
 
 ### Changed
 ### Fixed
