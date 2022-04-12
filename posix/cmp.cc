@@ -42,6 +42,12 @@ cmp_flags get_flags(int argc, char** argv) {
 int main(int argc, char** argv) {
     auto flags = get_flags(argc, argv);
 
+    if(argc - optind != 2) {
+        std::cerr << "cmp: Missing operand\n";
+        std::cerr << "  Try 'man cmp' for more information\n";
+        std::exit(1);
+    }
+
     std::filesystem::path file0_path{argv[optind + 0]};
     std::filesystem::path file1_path{argv[optind + 1]};
 
