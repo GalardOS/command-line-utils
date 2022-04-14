@@ -69,7 +69,9 @@ int main(int argc, char** argv) {
 
     for(size_t i = 0; i < file0_size; i++) {
         if(file0_content[i] != file1_content[i]) {
-            std::cout << file0_path.string() << " and " << file1_path.string() << " differ: byte " << i << std::endl;
+            if(!flags.silent)
+                std::cout << file0_path.string() << " and " << file1_path.string() << " differ: byte " << i << std::endl;
+
             std::exit(1);
         }
     }
