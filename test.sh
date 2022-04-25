@@ -25,3 +25,7 @@ echo "--------------------------------------------------------------------------
 
 echo "* Basename"
 sh basename.sh
+
+echo ""
+echo "* Dirname"
+sh dirname.sh
