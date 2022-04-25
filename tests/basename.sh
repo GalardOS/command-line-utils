@@ -7,6 +7,7 @@ test_basename() {
         echo "  * Example $1: passed"
     else
         echo "  * Example $1: failed"
+        echo "    * Command \"basename $2\", expected result \"$3\""
     fi
 }
 
