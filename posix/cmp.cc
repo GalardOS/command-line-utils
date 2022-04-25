@@ -57,7 +57,9 @@ int main(int argc, char** argv) {
     auto file1_size = std::filesystem::file_size(file1_path);
     if(file0_size != file1_size) {
         int difference_point = std::min(file0_size, file1_size);
-        std::cout << file0_path.string() << " and " << file1_path.string() << " differ: byte " << difference_point << std::endl;
+        if(!flags.silent)
+            std::cout << file0_path.string() << " and " << file1_path.string() << " differ: byte " << difference_point << std::endl;
+
         std::exit(1);
     }
 
