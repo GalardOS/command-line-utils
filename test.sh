@@ -1,5 +1,9 @@
 #!/bin/sh
 
+GREEN='\e[1;32m'
+RED='\e[1;31m'
+NOCOLOR='\e[0m'
+
 clear
 echo "---------------------------------------------------------------------------------"
 echo " BUILD TEST"
@@ -7,9 +11,10 @@ echo "--------------------------------------------------------------------------
 make > /dev/null 2> /dev/null
 if [ $? = "0" ] 
 then
-    echo "* posix: passed"
+    echo -e "* posix:$GREEN passed $NOCOLOR"
 else
-    echo "* posix: failed"
+    echo -e "* posix:$RED failed $NOCOLOR"
+    echo    "  * Could not build posix utilities, can't do further tests"
     exit 1
 fi
 
