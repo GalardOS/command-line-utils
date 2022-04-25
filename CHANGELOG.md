@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Implemented utility `touch` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Added manual page for utility `uname` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Implemented utility `time` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for `time` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for `touch` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Implemented utility `rmdir` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added manual page for `rmdir` by [@ikergalardi](https://github.com/IkerGalardi/)
 
 ### Changed
 ### Fixed
