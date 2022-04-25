@@ -1,13 +1,17 @@
 #!/bin/sh
 
+GREEN='\e[1;32m'
+RED='\e[1;31m'
+NOCOLOR='\e[0m'
+
 test_dirname() {
     RESULT=$(bin/dirname $2)
     if [ "$RESULT" = "$3" ]
     then 
-        echo "  * Example $1: passed"
+        echo -e "  * Example $1:$GREEN passed $NOCOLOR"
     else
-        echo "  * Example $1: failed"
-        echo "    * Command \"dirname $2\", expected result \"$3\""
+        echo -e "  * Example $1:$RED failed $NOCOLOR"
+        echo -e "    * Command \"dirname $2\", expected result \"$3\""
     fi
 }
 
