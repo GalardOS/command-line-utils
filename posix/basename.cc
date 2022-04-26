@@ -24,7 +24,7 @@ static std::string calculate_basename(const std::string& string) {
         }
     }
 
-    return std::string{};
+    return string;
 }
 
 static std::string remove_suffix(const std::string& string, const std::string& suffix) {
