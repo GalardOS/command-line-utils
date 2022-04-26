@@ -42,3 +42,7 @@ sh echo.sh
 echo ""
 echo "* True"
 sh true.sh
+
+echo ""
+echo "* False"
+sh false.sh
