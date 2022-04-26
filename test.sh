@@ -38,3 +38,7 @@ sh dirname.sh
 echo ""
 echo "* Echo"
 sh echo.sh
+
+echo ""
+echo "* True"
+sh true.sh
