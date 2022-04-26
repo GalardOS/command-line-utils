@@ -18,3 +18,4 @@ test_basename() {
 test_basename 1 "aa/bb" "bb"
 test_basename 2 "aa" "aa"
 test_basename 3 "aa/bb/cc" "cc"
+test_basename 4 "aa/bb/cc.c .c" "cc"
