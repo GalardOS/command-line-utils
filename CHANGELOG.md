@@ -30,6 +30,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * Added manual page for `touch` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Implemented utility `rmdir` by [@ikergalardi](https://github.com/IkerGalardi/)
 * Added manual page for `rmdir` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Automatic testing framework by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added test for `basename` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added test for `dirname` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added test for `echo` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added test for `true` by [@ikergalardi](https://github.com/IkerGalardi/)
+* Added test for `false` by [@ikergalardi](https://github.com/IkerGalardi/)
 
 ### Changed
 ### Fixed
